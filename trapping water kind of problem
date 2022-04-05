@@ -1,0 +1,26 @@
+//5 APRIL 2022
+
+//  O(n) and O(1) solution
+
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int left = 0;
+        int right = height.size() - 1;
+        int maxi = 0;
+        while(left < right){
+            int w = right - left;          // max water container can hold is width*height i.e (right-left)*(min(left height,right height))
+            int h = min(height[left], height[right]);
+            int area = h * w;
+            maxi = max(maxi, area);         // store the max area found till now
+            if(height[left] < height[right]) left++;  //we keep the max height and move the min height pointer as we need max area
+            else if(height[left] > height[right]) right--;
+            else {                     // if both height are same
+                left++;
+                right--;
+            }
+        }
+        return maxi;
+    }
+};
